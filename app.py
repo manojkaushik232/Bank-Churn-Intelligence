@@ -164,10 +164,10 @@ if page == "Overview":
             labels={TARGET: "Exited"},
         )
         histogram.update_layout(bargap=0.08, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
-        st.plotly_chart(histogram, use_container_width=True)
+        st.plotly_chart(histogram, width="stretch")
     with right:
         st.subheader("Model scorecard")
-        st.dataframe(pd.DataFrame(metrics.items(), columns=["Metric", "Score"]).assign(Score=lambda frame: frame["Score"].map(lambda value: f"{value:.3f}")), hide_index=True, use_container_width=True)
+        st.dataframe(pd.DataFrame(metrics.items(), columns=["Metric", "Score"]).assign(Score=lambda frame: frame["Score"].map(lambda value: f"{value:.3f}")), hide_index=True, width="stretch")
         st.caption("Metrics are measured on the held-out stratified test set.")
 
     st.subheader("What drives risk?")
@@ -176,7 +176,7 @@ if page == "Overview":
         color="Importance", color_continuous_scale=[[0, "#b9d8d0"], [1, "#d95d39"]],
     )
     importance_chart.update_layout(showlegend=False, coloraxis_showscale=False, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(importance_chart, use_container_width=True)
+    st.plotly_chart(importance_chart, width="stretch")
 
 elif page == "Risk calculator":
     st.subheader("Customer churn risk calculator")
@@ -229,4 +229,4 @@ else:
     chart = px.bar(comparison, x="State", y="Churn probability", color="State", color_discrete_sequence=["#72aaa3", "#d95d39"], text_auto=".1%")
     chart.update_yaxes(range=[0, 1], tickformat=".0%")
     chart.update_layout(showlegend=False, plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
-    st.plotly_chart(chart, use_container_width=True)
+    st.plotly_chart(chart, width="stretch")
